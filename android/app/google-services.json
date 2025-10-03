@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "34759494051",
+    "firebase_url": "https://appnative-f747b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "appnative-f747b",
+    "storage_bucket": "appnative-f747b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34759494051:android:558e5721c9de1c7b96f216",
+        "android_client_info": {
+          "package_name": "com.news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34759494051-23679ug2dksj0igf4eid4gtjfnbs3tks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmE1B-eCLcjBcJOK5-sxbrwDy9skxPsyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34759494051-23679ug2dksj0igf4eid4gtjfnbs3tks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34759494051-g4u7qjetmcqhuhvdeilll2daabr6q4ve.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appnative"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34759494051:android:cd33513a21f604d196f216",
+        "android_client_info": {
+          "package_name": "com.siwarga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34759494051-23679ug2dksj0igf4eid4gtjfnbs3tks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmE1B-eCLcjBcJOK5-sxbrwDy9skxPsyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34759494051-23679ug2dksj0igf4eid4gtjfnbs3tks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34759494051-g4u7qjetmcqhuhvdeilll2daabr6q4ve.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appnative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
