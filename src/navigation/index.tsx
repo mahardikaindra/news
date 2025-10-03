@@ -8,8 +8,10 @@ import SearchPage from '../screens/searchpage';
 import ProfilePage from '../screens/profilepage';
 import NotificationPage from '../screens/notificationpage';
 import HomePage from '../screens/homepage';
+import CategoryNewsPage from '../screens/categorynewspage';
+import NewsDetailPage from '../screens/newsdetailpage';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
-
+ 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -46,7 +48,7 @@ const HomeTabNavigator = () => {
       tabBarActiveTintColor: '#007bff',
       tabBarInactiveTintColor: 'gray',
     })}>
-      <Tab.Screen name="Home" component={HomePage} />
+      <Tab.Screen name="Home" component={HomePage} options={{ title: 'Top Headline' }}/>
       <Tab.Screen name="Categories" component={CategoriesPage} />
       <Tab.Screen name="Search" component={SearchPage} />
       <Tab.Screen name="Notifications" component={NotificationPage} />
@@ -64,6 +66,12 @@ const AppNavigator = () => {
             component={HomeTabNavigator}
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="CategoryNews"
+            component={CategoryNewsPage}
+            options={({ route }) => ({ title: `Top News in ${(route.params as { category: string })?.category}` || 'Category News' })}
+          />
+          <Stack.Screen name="NewsDetail" component={NewsDetailPage} options={{ title: 'News Detail' }} />
         </Stack.Navigator>
       </NavigationContainer>
   );

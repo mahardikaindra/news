@@ -3,80 +3,17 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
   Image,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { Ionicons } from '@react-native-vector-icons/ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { API_KEY } from '@env';
 import Api from '../../utils/Api';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f2f5',
-    padding: 16,
-  },
-  searchInput: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 12,
-    backgroundColor: '#fff',
-  },
-  pickerContainer: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 12,
-    backgroundColor: '#fff',
-  },
-  articleCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  articleImage: {
-    width: '100%',
-    height: 200,
-    borderRadius: 8,
-    marginBottom: 12,
-  },
-  articleTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333333',
-  },
-  articleSource: {
-    fontSize: 14,
-    color: '#888888',
-    marginBottom: 8,
-  },
-  articleDescription: {
-    fontSize: 16,
-    color: '#555555',
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 16,
-  },
-});
+import styles from './styles';
 
 interface Article {
   source: {
@@ -93,6 +30,7 @@ interface Article {
 }
 
 const SearchPage = () => {
+  const navigation = useNavigation<any>();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('general');
   const [articles, setArticles] = useState<Article[]>([]);
@@ -114,8 +52,9 @@ const SearchPage = () => {
     setError(null);
     try {
       const response = await Api.get(
-        `/everything?q=${searchQuery}&category=${selectedCategory}&apiKey=${API_KEY}`,
+        `/top-headlines?q=${searchQuery}&category=${selectedCategory}&apiKey=${API_KEY}`,
       );
+      console.log(response.data.articles);
       setArticles(response.data.articles);
     } catch (err) {
       setError('Failed to fetch news articles. Please try again later.');
@@ -125,15 +64,25 @@ const SearchPage = () => {
   }, [searchQuery, selectedCategory]);
 
   useEffect(() => {
-    if (searchQuery.length > 2) {
+    if (searchQuery.length > 2 && selectedCategory) {
       handleSearch();
     } else if (searchQuery.length === 0 && articles.length > 0) {
-      setArticles([]); // Clear articles if search query is empty
+      setArticles([]);
     }
-  }, [articles.length, handleSearch, searchQuery]);
+  }, [articles.length, handleSearch, searchQuery, selectedCategory]);
 
   const renderArticleItem = ({ item }: { item: Article }) => (
-    <TouchableOpacity style={styles.articleCard} onPress={() => {}}>
+    <TouchableOpacity style={styles.articleCard} onPress={() => navigation.navigate('NewsDetail', {
+      title: item.title,
+      description: item.description,
+      urlToImage: item.urlToImage,
+      url: item.url,
+      sourceName: item.source.name,
+      author: item.author,
+      publishedAt: item.publishedAt,
+      content: item.content,
+    }
+    )}>
       {item.urlToImage ? (
         <Image source={{ uri: item.urlToImage }} style={styles.articleImage} />
       ) : null}
@@ -173,6 +122,7 @@ const SearchPage = () => {
         </View>
       ) : error ? (
         <View style={styles.centered}>
+          <Ionicons name="alert-circle-outline" size={50} color="red" />
           <Text style={styles.errorText}>{error}</Text>
         </View>
       ) : (
@@ -181,8 +131,12 @@ const SearchPage = () => {
           renderItem={renderArticleItem}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={
-            <Text>No articles found. Try a different search.</Text>
+            <View style={styles.centered}>
+              <Ionicons name="search-circle-outline" size={100} color="#333" />
+              <Text style={styles.articleDescription}>No articles found. Try a different search.</Text>
+            </View>
           }
+          showsVerticalScrollIndicator={false}
         />
       )}
     </View>

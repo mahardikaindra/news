@@ -2,71 +2,12 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   TouchableOpacity,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#f0f2f5',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  notificationItem: {
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  notificationTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333333',
-  },
-  notificationBody: {
-    fontSize: 16,
-    color: '#555555',
-    marginBottom: 8,
-  },
-  notificationDate: {
-    fontSize: 14,
-    color: '#888888',
-    textAlign: 'right',
-  },
-  clearButton: {
-    backgroundColor: '#ff4d4d',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  clearButtonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: '#888888',
-    marginTop: 20,
-    fontSize: 16,
-  },
-});
+import styles from './styles';
 
 interface Notification {
   id: string;
@@ -83,8 +24,6 @@ const NotificationPage = () => {
 
   useEffect(() => {
     loadNotifications();
-    // In a real app, you would set up a listener for new push notifications here
-    // For demonstration, let's simulate receiving a notification
     const simulateNotification = setTimeout(() => {
       const newNotification: Notification = {
         id: Date.now().toString(),
@@ -93,7 +32,7 @@ const NotificationPage = () => {
         date: new Date().toLocaleString(),
       };
       saveNotification(newNotification);
-    }, 5000); // Simulate after 5 seconds
+    }, 5000);
 
     return () => clearTimeout(simulateNotification);
   }, []);
@@ -148,7 +87,6 @@ const NotificationPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Notifications</Text>
       {loading ? (
         <Text style={styles.emptyText}>Loading...</Text>
       ) : notifications.length === 0 ? (

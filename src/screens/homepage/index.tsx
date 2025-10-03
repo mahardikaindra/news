@@ -2,72 +2,16 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   ActivityIndicator,
   Image,
   TouchableOpacity,
 } from 'react-native';
+import styles from './styles';
 import { API_KEY } from '@env';
+import { useNavigation } from '@react-navigation/native';
 import Api from '../../utils/Api';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f2f5',
-    padding: 16,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  listContent: {
-    paddingBottom: 16,
-  },
-  articleCard: {
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  articleImage: {
-    width: '100%',
-    height: 200,
-    borderRadius: 8,
-    marginBottom: 12,
-  },
-  articleTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333333',
-  },
-  articleSource: {
-    fontSize: 14,
-    color: '#888888',
-    marginBottom: 8,
-  },
-  articleDescription: {
-    fontSize: 16,
-    color: '#555555',
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 16,
-  },
-});
 
 interface Article {
   source: {
@@ -84,6 +28,7 @@ interface Article {
 }
 
 const HomePage = () => {
+  const navigation = useNavigation<any>();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -106,13 +51,30 @@ const HomePage = () => {
   };
 
   const renderArticle = ({ item }: { item: Article }) => (
-    <TouchableOpacity style={styles.articleCard}>
-      {item.urlToImage && (
-        <Image source={{ uri: item.urlToImage }} style={styles.articleImage} />
-      )}
-      <Text style={styles.articleTitle}>{item.title}</Text>
-      <Text style={styles.articleSource}>{item.source.name}</Text>
-      <Text style={styles.articleDescription}>{item.description}</Text>
+    <TouchableOpacity
+      style={styles.articleCard}
+      onPress={() => {
+        navigation.navigate('NewsDetail', {
+          title: item.title,
+          description: item.description,
+          urlToImage: item.urlToImage,
+          url: item.url,
+          sourceName: item.source.name,
+          author: item.author,
+          publishedAt: item.publishedAt,
+          content: item.content,
+        });
+      }}
+    >
+      <>
+        {item.urlToImage && (
+          <Image source={{ uri: item.urlToImage }} style={styles.articleImage} />
+        )}
+        <Text style={styles.articleTitle}>{item.title}</Text>
+        <Text style={styles.articleSource}>{item.source.name}</Text>
+        <Text style={styles.articleAuthor}>Author : {item.author}</Text>
+        <Text style={styles.articleDescription}>{item.description}</Text>
+      </>
     </TouchableOpacity>
   );
 
@@ -134,12 +96,12 @@ const HomePage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Top Headlines</Text>
       <FlatList
         data={articles}
         renderItem={renderArticle}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
