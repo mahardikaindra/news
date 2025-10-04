@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
 import { useNavigation } from '@react-navigation/native';
+import ComboBox from '../../components/Combobox';
 import { API_KEY } from '@env';
 import Api from '../../utils/Api';
 import styles from './styles';
@@ -72,17 +72,21 @@ const SearchPage = () => {
   }, [articles.length, handleSearch, searchQuery, selectedCategory]);
 
   const renderArticleItem = ({ item }: { item: Article }) => (
-    <TouchableOpacity style={styles.articleCard} onPress={() => navigation.navigate('NewsDetail', {
-      title: item.title,
-      description: item.description,
-      urlToImage: item.urlToImage,
-      url: item.url,
-      sourceName: item.source.name,
-      author: item.author,
-      publishedAt: item.publishedAt,
-      content: item.content,
-    }
-    )}>
+    <TouchableOpacity
+      style={styles.articleCard}
+      onPress={() =>
+        navigation.navigate('NewsDetail', {
+          title: item.title,
+          description: item.description,
+          urlToImage: item.urlToImage,
+          url: item.url,
+          sourceName: item.source.name,
+          author: item.author,
+          publishedAt: item.publishedAt,
+          content: item.content,
+        })
+      }
+    >
       {item.urlToImage ? (
         <Image source={{ uri: item.urlToImage }} style={styles.articleImage} />
       ) : null}
@@ -103,18 +107,11 @@ const SearchPage = () => {
         onChangeText={setSearchQuery}
       />
       <View style={styles.pickerContainer}>
-        <Picker
+        <ComboBox
+          options={categories}
           selectedValue={selectedCategory}
           onValueChange={itemValue => setSelectedCategory(itemValue)}
-        >
-          {categories.map(category => (
-            <Picker.Item
-              key={category.value}
-              label={category.label}
-              value={category.value}
-            />
-          ))}
-        </Picker>
+        />
       </View>
       {loading ? (
         <View style={styles.centered}>
@@ -133,7 +130,9 @@ const SearchPage = () => {
           ListEmptyComponent={
             <View style={styles.centered}>
               <Ionicons name="search-circle-outline" size={100} color="#333" />
-              <Text style={styles.articleDescription}>No articles found. Try a different search.</Text>
+              <Text style={styles.articleDescription}>
+                No articles found. Try a different search.
+              </Text>
             </View>
           }
           showsVerticalScrollIndicator={false}

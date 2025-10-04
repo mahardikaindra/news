@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,7 +10,8 @@ import HomePage from '../screens/homepage';
 import CategoryNewsPage from '../screens/categorynewspage';
 import NewsDetailPage from '../screens/newsdetailpage';
 import { Ionicons } from '@react-native-vector-icons/ionicons';
- 
+import capitalizeFirst from '../utils/Capitalize';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -19,9 +19,20 @@ const tabBarIcon = (
   route: string,
   focused: boolean,
   color: string,
-  size: number
+  size: number,
 ): React.ReactElement => {
-  let iconName: 'home' | 'home-outline' | 'list' | 'list-outline' | 'search' | 'search-outline' | 'notifications' | 'notifications-outline' | 'person' | 'person-outline' | 'ellipse-outline';
+  let iconName:
+    | 'home'
+    | 'home-outline'
+    | 'list'
+    | 'list-outline'
+    | 'search'
+    | 'search-outline'
+    | 'notifications'
+    | 'notifications-outline'
+    | 'person'
+    | 'person-outline'
+    | 'ellipse-outline';
 
   if (route === 'Home') {
     iconName = focused ? 'home' : 'home-outline';
@@ -42,13 +53,20 @@ const tabBarIcon = (
 
 const HomeTabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={({ route }) => ({
-      //headerShown: false,
-      tabBarIcon: ({ focused, color, size }) => tabBarIcon(route.name, focused, color, size),
-      tabBarActiveTintColor: '#007bff',
-      tabBarInactiveTintColor: 'gray',
-    })}>
-      <Tab.Screen name="Home" component={HomePage} options={{ title: 'Top Headline' }}/>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        //headerShown: false,
+        tabBarIcon: ({ focused, color, size }) =>
+          tabBarIcon(route.name, focused, color, size),
+        tabBarActiveTintColor: '#007bff',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomePage}
+        options={{ title: 'Top Headline' }}
+      />
       <Tab.Screen name="Categories" component={CategoriesPage} />
       <Tab.Screen name="Search" component={SearchPage} />
       <Tab.Screen name="Notifications" component={NotificationPage} />
@@ -59,21 +77,30 @@ const HomeTabNavigator = () => {
 
 const AppNavigator = () => {
   return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="HomeTabs"
-            component={HomeTabNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="CategoryNews"
-            component={CategoryNewsPage}
-            options={({ route }) => ({ title: `Top News in ${(route.params as { category: string })?.category}` || 'Category News' })}
-          />
-          <Stack.Screen name="NewsDetail" component={NewsDetailPage} options={{ title: 'News Detail' }} />
-        </Stack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="HomeTabs"
+          component={HomeTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CategoryNews"
+          component={CategoryNewsPage}
+          options={({ route }) => ({
+            title:
+              `Top News in ${capitalizeFirst(
+                (route.params as { category: string })?.category,
+              )}` || 'Category News',
+          })}
+        />
+        <Stack.Screen
+          name="NewsDetail"
+          component={NewsDetailPage}
+          options={{ title: 'News Detail' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

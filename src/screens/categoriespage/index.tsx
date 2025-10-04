@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -23,15 +18,37 @@ const categories: {
   id: string;
   name: string;
   category: string;
-  icons: 'football-outline' | 'laptop-outline' | 'heart-outline' | 'school-outline' | 'film-outline' | 'briefcase-outline' | 'newspaper-outline';
+  icons:
+    | 'football-outline'
+    | 'laptop-outline'
+    | 'heart-outline'
+    | 'school-outline'
+    | 'film-outline'
+    | 'briefcase-outline'
+    | 'newspaper-outline';
 }[] = [
-  { id: '1', name: 'Business', category: 'business', icons: 'briefcase-outline' },
-  { id: '2', name: 'Entertainment', category: 'entertainment', icons: 'film-outline' },
+  {
+    id: '1',
+    name: 'Business',
+    category: 'business',
+    icons: 'briefcase-outline',
+  },
+  {
+    id: '2',
+    name: 'Entertainment',
+    category: 'entertainment',
+    icons: 'film-outline',
+  },
   { id: '3', name: 'General', category: 'general', icons: 'newspaper-outline' },
   { id: '4', name: 'Health', category: 'health', icons: 'heart-outline' },
   { id: '5', name: 'Science', category: 'science', icons: 'school-outline' },
   { id: '6', name: 'Sports', category: 'sports', icons: 'football-outline' },
-  { id: '7', name: 'Technology', category: 'technology', icons: 'laptop-outline' },
+  {
+    id: '7',
+    name: 'Technology',
+    category: 'technology',
+    icons: 'laptop-outline',
+  },
 ];
 
 const CategoriesPage = () => {
@@ -42,14 +59,26 @@ const CategoriesPage = () => {
   };
 
   const renderCategoryItem = ({
-    item
+    item,
   }: {
-    item: { id: string; name: string; category: string; icons: 'football-outline' | 'laptop-outline' | 'heart-outline' | 'school-outline' | 'film-outline' | 'briefcase-outline' | 'newspaper-outline' };
+    item: {
+      id: string;
+      name: string;
+      category: string;
+      icons:
+        | 'football-outline'
+        | 'laptop-outline'
+        | 'heart-outline'
+        | 'school-outline'
+        | 'film-outline'
+        | 'briefcase-outline'
+        | 'newspaper-outline';
+    };
   }) => (
     <TouchableOpacity
       style={styles.categoryItem}
       onPress={() => handleCategoryPress(item.category)}
-    > 
+    >
       <Ionicons name={item.icons} size={30} color="#007bff" />
       <Text style={styles.categoryText}>{item.name}</Text>
     </TouchableOpacity>

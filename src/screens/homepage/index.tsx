@@ -12,7 +12,6 @@ import { API_KEY } from '@env';
 import { useNavigation } from '@react-navigation/native';
 import Api from '../../utils/Api';
 
-
 interface Article {
   source: {
     id: string | null;
@@ -68,7 +67,10 @@ const HomePage = () => {
     >
       <>
         {item.urlToImage && (
-          <Image source={{ uri: item.urlToImage }} style={styles.articleImage} />
+          <Image
+            source={{ uri: item.urlToImage }}
+            style={styles.articleImage}
+          />
         )}
         <Text style={styles.articleTitle}>{item.title}</Text>
         <Text style={styles.articleSource}>{item.source.name}</Text>

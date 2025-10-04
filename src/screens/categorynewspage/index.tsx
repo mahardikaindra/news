@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import Api from '../../utils/Api';
@@ -38,8 +45,8 @@ const CategoryNewsPage = () => {
     const fetchNews = async () => {
       try {
         setLoading(true);
-         const response = await Api.get(
-            `/top-headlines?category=${category}&language=en&apiKey=${API_KEY}`,
+        const response = await Api.get(
+          `/top-headlines?category=${category}&language=en&apiKey=${API_KEY}`,
         );
         if (response.data.status === 'ok') {
           setNews(response.data.articles);
@@ -86,17 +93,20 @@ const CategoryNewsPage = () => {
           publishedAt: item.publishedAt,
           content: item.content,
         })
-      }>
+      }
+    >
       <View style={styles.newsItem}>
         {item.urlToImage && (
-          <Image source={{ uri: item.urlToImage }} style={styles.articleImage} />
+          <Image
+            source={{ uri: item.urlToImage }}
+            style={styles.articleImage}
+          />
         )}
         <Text style={styles.newsTitle}>{item.title}</Text>
         <Text style={styles.newsSource}>Source: {item.source.name}</Text>
         <Text style={styles.newsDescription}>{item.description}</Text>
       </View>
     </TouchableOpacity>
-    
   );
 
   return (
