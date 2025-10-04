@@ -1,97 +1,142 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+News App – Skill Test Mobile Developer
 
-# Getting Started
+PT. CITRARAYA NUSATAMA (DHEALTH)
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Aplikasi mobile sederhana untuk menampilkan berita terkini (Top Headlines) dari API berita dengan fitur pencarian, kategori, profil pengguna, dan notifikasi.
+Dibuat menggunakan React Native (Expo / CLI) dengan integrasi Firebase Cloud Messaging (FCM) untuk push notification.
 
-## Step 1: Start Metro
+🚀 Cara Menjalankan Project
+1. Persiapan
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+Pastikan sudah ter-install:
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Node.js
+ (versi LTS disarankan)
 
-```sh
-# Using npm
-npm start
+Expo CLI
+ atau React Native CLI
 
-# OR using Yarn
-yarn start
-```
+Yarn
+ / npm
 
-## Step 2: Build and run your app
+Android Studio atau Xcode (jika testing di emulator)
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Akun Firebase
+ (jika menggunakan fase 2 – notifikasi)
 
-### Android
+2. Clone Repository
+git clone https://github.com/mahardikaindra/news.git
+cd news
 
-```sh
-# Using npm
-npm run android
+3. Install Dependencies
+yarn install
+# atau
+npm install
 
-# OR using Yarn
-yarn android
-```
+4. Konfigurasi Environment
 
-### iOS
+Buat file .env pada root project:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+API_KEY=your_newsapi_key_here
+BASE_URL=https://newsapi.org/v2
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+5. Jalankan Aplikasi
 
-```sh
-bundle install
-```
+Jika menggunakan Expo:
 
-Then, and every time you update your native dependencies, run:
+npx expo start
 
-```sh
-bundle exec pod install
-```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Jika menggunakan React Native CLI:
 
-```sh
-# Using npm
-npm run ios
+npx react-native run-android
+# atau
+npx react-native run-ios
 
-# OR using Yarn
-yarn ios
-```
+📖 Detail Aplikasi
+Fase 1 – News App
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Halaman Beranda (Top Headlines)
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Menampilkan berita utama hari ini dari US.
 
-## Step 3: Modify your app
+Format list vertikal dengan komponen:
 
-Now that you have successfully run the app, let's make changes!
+Gambar preview berita
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Sumber (source)
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+Penulis (author)
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Judul (title)
 
-## Congratulations! :tada:
+Deskripsi singkat (description)
 
-You've successfully run and modified your React Native App. :partying_face:
+Halaman Pencarian Berita
 
-### Now what?
+Search box untuk input kata kunci.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+Combo box untuk memilih pencarian berdasarkan title atau description.
 
-# Troubleshooting
+Hasil pencarian ditampilkan dalam list.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+Halaman Kategori
 
-# Learn More
+Menampilkan semua kategori berita:
 
-To learn more about React Native, take a look at the following resources:
+Business, Entertainment, General, Health, Science, Sports, Technology
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Saat kategori dipilih, aplikasi menampilkan berita sesuai kategori.
+
+Halaman Notifikasi
+
+Placeholder (fase 1).
+
+Implementasi detail ada di fase 2.
+
+Halaman Profil
+
+Karena belum ada sistem login, halaman hanya menampilkan Coming Soon.
+
+Navigation Bar (Bottom Tabs)
+
+Semua halaman dapat diakses dari bottom navigation bar.
+
+Fase 2 – Push Notification (Opsional)
+
+Integrasi Firebase Cloud Messaging (FCM).
+
+Aplikasi dapat:
+
+Generate FCM token.
+
+Menerima push notification dan menampilkannya di home screen HP.
+
+Menyimpan setiap notifikasi di local storage.
+
+Menampilkan riwayat notifikasi pada halaman Notifikasi.
+
+Fitur input & pengiriman pesan bisa diuji melalui Firebase Console.
+
+🛠️ Tech Stack
+
+React Native 0.81 / Expo
+
+React Navigation (Bottom Tabs)
+
+Axios / Fetch API untuk konsumsi News API
+
+Firebase Cloud Messaging (FCM) untuk notifikasi
+
+AsyncStorage untuk menyimpan notifikasi lokal
+
+📷 Screenshots (Opsional)
+
+Tambahkan screenshot tiap halaman di folder docs/screenshots/.
+
+👨‍💻 Author
+
+Raka Mahardika
+Skill Test Mobile Developer – PT. CITRARAYA NUSATAMA (DHEALTH)## License
+
+This project is open-source and available under the [MIT License](LICENSE).
