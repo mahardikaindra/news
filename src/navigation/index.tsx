@@ -65,7 +65,7 @@ const HomeTabNavigator = () => {
       <Tab.Screen
         name="Home"
         component={HomePage}
-        options={{ title: 'Top Headline' }}
+        options={{ title: 'Home' }}
       />
       <Tab.Screen name="Categories" component={CategoriesPage} />
       <Tab.Screen name="Search" component={SearchPage} />
